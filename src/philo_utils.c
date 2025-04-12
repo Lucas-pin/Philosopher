@@ -6,7 +6,7 @@
 /*   By: lpin <lpin@student.42malaga.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 20:07:50 by lpin              #+#    #+#             */
-/*   Updated: 2025/04/09 20:17:50 by lpin             ###   ########.fr       */
+/*   Updated: 2025/04/12 20:00:07 by lpin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,6 @@ long	ft_atoi(char *s)
 		s++;
 	}
 	return (nbr * flag);
-}
-
-void	ft_putnbr(uint64_t n)
-{
-	char		mod;
-	uint64_t	div;
-
-	div = n / 10;
-	mod = (n % 10) + '0';
-	if (div != 0)
-		ft_putnbr(div);
-	if (mod >= '0' && mod <= '9')
-		write(1, &mod, 1);
 }
 
 void	ft_error(enum e_error error, t_table **table)
@@ -91,16 +78,8 @@ void	ft_destroy_table(t_table **table)
 		*table = NULL;
 	}
 }
-void	ft_ussleep(long mls)
-{
-	long	start;
 
-	start = get_current_time();
-	while (get_current_time() - start < mls)
-		usleep(100);
-}
-
-uint64_t get_current_time(void)
+uint64_t	get_current_time(void)
 {
 	struct timeval	time;
 

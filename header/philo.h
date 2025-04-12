@@ -6,12 +6,12 @@
 /*   By: lpin <lpin@student.42malaga.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 20:47:27 by lpin              #+#    #+#             */
-/*   Updated: 2025/04/12 19:15:44 by lpin             ###   ########.fr       */
+/*   Updated: 2025/04/12 19:59:41 by lpin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
-# define PHILO_H   
+# define PHILO_H
 # include <stdio.h>
 # include <unistd.h>
 # include <pthread.h>
@@ -56,15 +56,15 @@ typedef struct s_philo
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	t_table			*table;
-	pthread_mutex_t philo_mutex;
-	uint64_t		last_meal_time;  // Tiempo de la última comida en milisegundos
+	pthread_mutex_t	philo_mutex;
+	uint64_t		last_meal_time;
 	int				start_simulation;
 }					t_philo;
 
 typedef struct s_table
 {
 	int				philo_num;
-	uint64_t		time_to_die;     // Tiempo de muerte en milisegundos
+	uint64_t		time_to_die;
 	uint64_t		time_to_eat;
 	uint64_t		time_to_sleep;
 	int				meals;
@@ -76,33 +76,35 @@ typedef struct s_table
 	int				stop_simulation;
 }					t_table;
 
-/*---------------------philo-----------------*/
+/*---------------------philo---------------------------*/
 //int		main(int argc, char **argv);
 
-/*---------------------philo_utils-----------------*/
+/*---------------------philo_utils---------------------*/
 int			ft_isdigit(int c);
 long		ft_atoi(char *s);
 void		ft_error(enum e_error error, t_table **table);
 void		ft_destroy_table(t_table **table);
 uint64_t	get_current_time(void);
-void		ft_putnbr(uint64_t n);
 
-/*---------------------orchestor-----------------*/
+/*---------------------orchestor-----------------------*/
 void		ft_entry_orchestor(char **argv);
 void		ft_philos_orchestor(int argc, char **argv, t_table **table);
 
-/*---------------------check_entry-----------------*/
+/*---------------------check_entry---------------------*/
 void		ft_invalid_entry(char **argv);
 void		ft_invalid_number(char **argv);
-/*---------------------init-----------------*/
+
+/*---------------------init----------------------------*/
 void		ft_create_init_table(int argc, char **argv, t_table **table);
 void		ft_create_init_mutex(t_table **table);
 void		ft_create_philos(t_table **table);
 void		ft_init_philos(t_table **table);
-void		ft_create_pthreads(t_table **table);
 void		ft_create_monitor(t_table **table);
 
-/*---------------------philo_routine-----------------*/
+/*--------------------pthreads.c-----------------------*/
+void		ft_create_pthreads(t_table **table);
+
+/*---------------------philo_routine-------------------*/
 void		ft_take_fork(t_philo *philo);
 void		ft_eat(t_philo *philo);
 void		ft_sleep(t_philo *philo);
@@ -112,7 +114,7 @@ void		*ft_philos_routine(void *philo);
 /*---------------------monitor_routine-----------------*/
 void		*ft_monitor_routine(void *table);
 
-/*---------------------pthread_utils-----------------*/
+/*---------------------pthread_utils-------------------*/
 int			ft_get(pthread_mutex_t *mutex, int *var);
 uint64_t	ft_set(pthread_mutex_t *mutex, uint64_t *var, uint64_t new_value);
 void		ft_print(t_philo *philo, enum e_philo_status status);
@@ -120,7 +122,7 @@ void		lock_fork(pthread_mutex_t *fork, t_philo *philo);
 void		take_fork_in_order(pthread_mutex_t *first_fork,
 				pthread_mutex_t *second_fork, t_philo *philo);
 
-/*---------------------sincronization-----------------*/
+/*---------------------sincronization------------------*/
 void		wait_for_start(t_philo *philo);
 void		alternate_start_delay(t_philo *philo);
 bool		is_simulation_stopped(t_philo *philo);
