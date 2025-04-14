@@ -6,7 +6,7 @@
 /*   By: lpin <lpin@student.42malaga.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 20:47:27 by lpin              #+#    #+#             */
-/*   Updated: 2025/04/12 19:59:41 by lpin             ###   ########.fr       */
+/*   Updated: 2025/04/13 21:30:44 by lpin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ enum e_philo_status
 typedef struct s_philo
 {
 	int				id;
+	int				philo_num;
 	int				meals;
 	uint64_t		start_time;
 	uint64_t		time_to_eat;
@@ -79,42 +80,36 @@ typedef struct s_table
 /*---------------------philo---------------------------*/
 //int		main(int argc, char **argv);
 
-/*---------------------philo_utils---------------------*/
-int			ft_isdigit(int c);
-long		ft_atoi(char *s);
+/*---------------------check_entry---------------------*/
+void		ft_invalid_entry(char **argv);
+void		ft_invalid_number(char **argv);
+
+/*---------------------error---------------------------*/
 void		ft_error(enum e_error error, t_table **table);
+
+/*--------------------memory_utils---------------------*/
+void		*ft_allocate(size_t size, t_table **table);
 void		ft_destroy_table(t_table **table);
-uint64_t	get_current_time(void);
+
+/*---------------------monitor_routine-----------------*/
+void		*ft_monitor_routine(void *table);
+
+/*--------------------------mutex----------------------*/
+void		create_mutex(t_table **table);
+void		init_mutex(t_table **table);
 
 /*---------------------orchestor-----------------------*/
 void		ft_entry_orchestor(char **argv);
 void		ft_philos_orchestor(int argc, char **argv, t_table **table);
 
-/*---------------------check_entry---------------------*/
-void		ft_invalid_entry(char **argv);
-void		ft_invalid_number(char **argv);
-
-/*---------------------init----------------------------*/
-void		ft_create_init_table(int argc, char **argv, t_table **table);
-void		ft_create_init_mutex(t_table **table);
-void		ft_create_philos(t_table **table);
-void		ft_init_philos(t_table **table);
-void		ft_create_monitor(t_table **table);
-
-/*--------------------pthreads.c-----------------------*/
-void		ft_create_pthreads(t_table **table);
-
 /*---------------------philo_routine-------------------*/
-void		ft_take_fork(t_philo *philo);
-void		ft_eat(t_philo *philo);
-void		ft_sleep(t_philo *philo);
-void		ft_think(t_philo *philo);
 void		*ft_philos_routine(void *philo);
 
-/*---------------------monitor_routine-----------------*/
-void		*ft_monitor_routine(void *table);
+/*-------------------------philos----------------------*/
+void		create_philos(t_table **table);
+void		init_philos(t_table **table);
 
-/*---------------------pthread_utils-------------------*/
+/*-------------------phthread_utils--------------------*/
 int			ft_get(pthread_mutex_t *mutex, int *var);
 uint64_t	ft_set(pthread_mutex_t *mutex, uint64_t *var, uint64_t new_value);
 void		ft_print(t_philo *philo, enum e_philo_status status);
@@ -122,10 +117,25 @@ void		lock_fork(pthread_mutex_t *fork, t_philo *philo);
 void		take_fork_in_order(pthread_mutex_t *first_fork,
 				pthread_mutex_t *second_fork, t_philo *philo);
 
-/*---------------------sincronization------------------*/
+/*--------------------pthreads.c-----------------------*/
+void		create_philos_threads(t_table **table);
+void		create_monitor_thread(t_table **table);
+
+/*------------------sincronization---------------------*/
+void		start_simulation(t_table **table);
 void		wait_for_start(t_philo *philo);
-void		alternate_start_delay(t_philo *philo);
+void		simetric_start_delay(t_philo *philo);
+void		asimetric_start_delay(t_philo *philo);
 bool		is_simulation_stopped(t_philo *philo);
 void		wait_to_die(t_philo *philo);
+
+/*----------------------table-------------------------*/
+void		create_table(t_table **table);
+void		init_table(int argc, char **argv, t_table **table);
+
+/*---------------------utils----------------------------*/
+int			ft_isdigit(int c);
+long		ft_atoi(char *s);
+uint64_t	get_current_time(void);
 
 #endif

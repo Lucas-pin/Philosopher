@@ -6,13 +6,28 @@
 /*   By: lpin <lpin@student.42malaga.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 23:47:29 by lpin              #+#    #+#             */
-/*   Updated: 2025/04/12 19:15:38 by lpin             ###   ########.fr       */
+/*   Updated: 2025/04/14 00:30:07 by lpin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/philo.h"
 
-void	ft_take_fork(t_philo *philo)
+void static	ft_eat(t_philo *philo)
+{
+	long	start_eat;
+
+	if (is_simulation_stopped(philo))
+		return ;
+	ft_print(philo, PHILO_EATING);
+	start_eat = get_current_time();
+	while (get_current_time() - start_eat < philo->time_to_eat)
+		usleep(100);
+	if (philo->meals > 0)
+		philo->meals--;
+	ft_set(&philo->philo_mutex, &philo->last_meal_time, get_current_time());
+}
+
+void static	ft_take_fork(t_philo *philo)
 {
 	if (philo->right_fork == philo->left_fork)
 	{
@@ -33,22 +48,8 @@ void	ft_take_fork(t_philo *philo)
 	}
 }
 
-void	ft_eat(t_philo *philo)
-{
-	long	start_eat;
 
-	if (is_simulation_stopped(philo))
-		return ;
-	ft_print(philo, PHILO_EATING);
-	start_eat = get_current_time();
-	while (get_current_time() - start_eat < philo->time_to_eat)
-		usleep(100);
-	if (philo->meals > 0)
-		philo->meals--;
-	ft_set(&philo->philo_mutex, &philo->last_meal_time, get_current_time());
-}
-
-void	ft_sleep(t_philo *philo)
+void static	ft_sleep(t_philo *philo)
 {
 	long	start_sleep;
 
@@ -60,7 +61,7 @@ void	ft_sleep(t_philo *philo)
 		usleep(100);
 }
 
-void	ft_think(t_philo *philo)
+void static	ft_think(t_philo *philo)
 {
 	if (is_simulation_stopped(philo))
 		return ;
@@ -73,7 +74,7 @@ void	*ft_philos_routine(void *philo)
 
 	philo_ptr = (t_philo *)philo;
 	wait_for_start(philo_ptr);
-	alternate_start_delay(philo_ptr);
+	simetric_start_delay(philo_ptr);
 	while ((is_simulation_stopped(philo)) == false && philo_ptr->meals != 0)
 	{
 		ft_take_fork(philo_ptr);
