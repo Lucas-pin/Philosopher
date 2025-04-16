@@ -6,7 +6,7 @@
 /*   By: lpin <lpin@student.42malaga.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 23:35:05 by lpin              #+#    #+#             */
-/*   Updated: 2025/04/13 20:23:51 by lpin             ###   ########.fr       */
+/*   Updated: 2025/04/16 21:41:15 by lpin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	init_table(int argc, char **argv, t_table **table)
 	int		i;
 
 	i = -1;
-
 	while (argv[++i])
 	{
 		if (i == 0)

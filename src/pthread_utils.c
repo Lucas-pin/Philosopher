@@ -6,7 +6,7 @@
 /*   By: lpin <lpin@student.42malaga.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:38:44 by lpin              #+#    #+#             */
-/*   Updated: 2025/04/12 17:53:08 by lpin             ###   ########.fr       */
+/*   Updated: 2025/04/16 21:37:16 by lpin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_get(pthread_mutex_t *mutex, int *var)
 	return (value);
 }
 
-uint64_t	ft_set(pthread_mutex_t *mutex, uint64_t *var, uint64_t new_value)
+void	ft_set(pthread_mutex_t *mutex, uint64_t *var, uint64_t new_value)
 {
 	pthread_mutex_lock(mutex);
 	*var = new_value;

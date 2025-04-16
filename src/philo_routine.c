@@ -6,13 +6,13 @@
 /*   By: lpin <lpin@student.42malaga.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 23:47:29 by lpin              #+#    #+#             */
-/*   Updated: 2025/04/14 00:30:07 by lpin             ###   ########.fr       */
+/*   Updated: 2025/04/16 21:41:28 by lpin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/philo.h"
 
-void static	ft_eat(t_philo *philo)
+static void	ft_eat(t_philo *philo)
 {
 	long	start_eat;
 
@@ -27,7 +27,7 @@ void static	ft_eat(t_philo *philo)
 	ft_set(&philo->philo_mutex, &philo->last_meal_time, get_current_time());
 }
 
-void static	ft_take_fork(t_philo *philo)
+static void	ft_take_fork(t_philo *philo)
 {
 	if (philo->right_fork == philo->left_fork)
 	{
@@ -48,8 +48,7 @@ void static	ft_take_fork(t_philo *philo)
 	}
 }
 
-
-void static	ft_sleep(t_philo *philo)
+static void	ft_sleep(t_philo *philo)
 {
 	long	start_sleep;
 
@@ -61,7 +60,7 @@ void static	ft_sleep(t_philo *philo)
 		usleep(100);
 }
 
-void static	ft_think(t_philo *philo)
+static void	ft_think(t_philo *philo)
 {
 	if (is_simulation_stopped(philo))
 		return ;

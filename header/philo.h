@@ -6,7 +6,7 @@
 /*   By: lpin <lpin@student.42malaga.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 20:47:27 by lpin              #+#    #+#             */
-/*   Updated: 2025/04/13 21:30:44 by lpin             ###   ########.fr       */
+/*   Updated: 2025/04/16 21:37:39 by lpin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void		init_philos(t_table **table);
 
 /*-------------------phthread_utils--------------------*/
 int			ft_get(pthread_mutex_t *mutex, int *var);
-uint64_t	ft_set(pthread_mutex_t *mutex, uint64_t *var, uint64_t new_value);
+void		ft_set(pthread_mutex_t *mutex, uint64_t *var, uint64_t new_value);
 void		ft_print(t_philo *philo, enum e_philo_status status);
 void		lock_fork(pthread_mutex_t *fork, t_philo *philo);
 void		take_fork_in_order(pthread_mutex_t *first_fork,

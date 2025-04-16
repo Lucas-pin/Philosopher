@@ -6,7 +6,7 @@
 /*   By: lpin <lpin@student.42malaga.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:54:15 by lpin              #+#    #+#             */
-/*   Updated: 2025/04/06 22:01:00 by lpin             ###   ########.fr       */
+/*   Updated: 2025/04/16 21:17:23 by lpin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_invalid_number(char **argv)
 	while (argv[i])
 	{
 		num = ft_atoi(argv[i]);
-		if (num < 0)
+		if (num < 0 || ft_atoi(argv[0]) == 0)
 			ft_error(ERR_INVALID_ARGUMENTS, NULL);
 		i++;
 	}

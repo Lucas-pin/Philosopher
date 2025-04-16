@@ -6,7 +6,7 @@
 /*   By: lpin <lpin@student.42malaga.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:31:31 by lpin              #+#    #+#             */
-/*   Updated: 2025/04/13 21:29:50 by lpin             ###   ########.fr       */
+/*   Updated: 2025/04/16 21:40:53 by lpin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,6 @@ void	simetric_start_delay(t_philo *philo)
 		while (get_current_time() - start_time < wait_time)
 			usleep(100);
 	}
-}
-
-void	asimetric_start_delay(t_philo *philo)
-{
-	uint64_t	start_time;
-	uint64_t	wait_time;
-
-	start_time = get_current_time();
-	wait_time = philo->id * philo->table->time_to_eat / 2;
-	while (get_current_time() - start_time < wait_time)
-		usleep(100);
 }
 
 bool	is_simulation_stopped(t_philo *philo)
